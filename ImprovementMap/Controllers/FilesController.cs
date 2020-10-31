@@ -29,6 +29,9 @@ namespace ImprovementMap.Controllers
             _excelService = excelService;
         }
 
+        /// <summary>
+        /// Загрузить титульный список
+        /// </summary>
         //[Authorize(Role.Admin)]
         [HttpPost]
         public ActionResult Post([FromForm] IFormFile file)

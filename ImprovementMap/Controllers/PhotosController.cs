@@ -25,6 +25,9 @@ namespace ImprovementMap.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Загрузить фото к объекту
+        /// </summary>
         [Authorize(Role.Admin, Role.Inspector)]
         [HttpPost("{objectId:int}")]
         public ActionResult Post(int objectId, [FromForm] IFormFile file)

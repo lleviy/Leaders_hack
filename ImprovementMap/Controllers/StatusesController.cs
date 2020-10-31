@@ -20,6 +20,9 @@ namespace ImprovementMap.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Назначить оценку объекту
+        /// </summary>
         [Authorize(Role.Admin)]
         [HttpPost]
         public ActionResult<Area> Create(int areaId, AreaStatus model)

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ImprovementMap</name>
+    </assembly>
+    <members>
+        <member name="M:ImprovementMap.Controllers.AreasController.GetAll(System.Nullable{System.Int32})">
+            <summary>
+            Получить все области или области, которым требуется ремонт определенного типа (дороги: 1, тротуары: 2, обочины: 3)
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.TasksController.GetAll(System.Nullable{System.Int32})">
+            <summary>
+            Получить все задачи
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.TasksController.Create(ImprovementMap.Entities.Task)">
+            <summary>
+            Назначить задачу инспектору
+            </summary>
+        </member>
+    </members>
+</doc>

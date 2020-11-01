@@ -33,21 +33,7 @@ namespace ImprovementMap
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             ).AddJsonOptions(x => x.JsonSerializerOptions.IgnoreNullValues = true);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            //services.AddSwaggerGen();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1",
-                    new OpenApiInfo
-                    {
-                        Title = "Improvement Map API",
-                        Version = "v1"
-                    }
-                 );
-
-                var filePath = Path.Combine(AppContext.BaseDirectory, "ImprovementMap.xml");
-                c.IncludeXmlComments(filePath);
-            });
+            services.AddSwaggerGen();
 
             // configure strongly typed settings object
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));

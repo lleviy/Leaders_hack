@@ -4,9 +4,69 @@
         <name>ImprovementMap</name>
     </assembly>
     <members>
+        <member name="M:ImprovementMap.Controllers.AccountsController.Authenticate(ImprovementMap.Models.Accounts.AuthenticateRequest)">
+            <summary>
+            Войти в аккаунт
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AccountsController.RevokeToken(ImprovementMap.Models.Accounts.RevokeTokenRequest)">
+            <summary>
+            Выйти из аккаунта
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AccountsController.Register(ImprovementMap.Models.Accounts.RegisterRequest)">
+            <summary>
+            Зарегистрировать аккаунт
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AccountsController.VerifyEmail(ImprovementMap.Models.Accounts.VerifyEmailRequest)">
+            <summary>
+            Подтвердить почту
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AccountsController.ForgotPassword(ImprovementMap.Models.Accounts.ForgotPasswordRequest)">
+            <summary>
+            Установить новый пароль
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AccountsController.ResetPassword(ImprovementMap.Models.Accounts.ResetPasswordRequest)">
+            <summary>
+            Сменить пароль
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AccountsController.GetAll">
+            <summary>
+            Получить все аккаунты (только администратор)
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AccountsController.GetById(System.Int32)">
+            <summary>
+            Получить свой профиль
+            </summary>
+        </member>
         <member name="M:ImprovementMap.Controllers.AreasController.GetAll(System.Nullable{System.Int32})">
             <summary>
             Получить все области или области, которым требуется ремонт определенного типа (дороги: 1, тротуары: 2, обочины: 3)
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AreasController.GetById(System.Int32)">
+            <summary>
+            Получить детали по области
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AreasController.Create(ImprovementMap.Entities.Area)">
+            <summary>
+            Добавить область (доступно только администратору)
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AreasController.Update(System.Int32,ImprovementMap.Entities.Area)">
+            <summary>
+            Редактировать область (доступно только администратору)
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.AreasController.Delete(System.Int32)">
+            <summary>
+            Удалить область (доступно только администратору)
             </summary>
         </member>
         <member name="M:ImprovementMap.Controllers.FilesController.Post(Microsoft.AspNetCore.Http.IFormFile)">
@@ -29,9 +89,24 @@
             Загрузить фото к объекту
             </summary>
         </member>
+        <member name="M:ImprovementMap.Controllers.PhotosController.Delete(System.Int32)">
+            <summary>
+            Удалить фото
+            </summary>
+        </member>
         <member name="M:ImprovementMap.Controllers.StatusesController.Create(System.Int32,ImprovementMap.Entities.AreaStatus)">
             <summary>
             Назначить оценку объекту
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.StatusesController.Update(System.Int32,ImprovementMap.Entities.AreaStatus)">
+            <summary>
+            Обновить оценку
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.StatusesController.Delete(System.Int32)">
+            <summary>
+            Удалить оценку
             </summary>
         </member>
         <member name="M:ImprovementMap.Controllers.TasksController.GetAll(System.Nullable{System.Int32})">
@@ -42,6 +117,16 @@
         <member name="M:ImprovementMap.Controllers.TasksController.Create(ImprovementMap.Entities.Task)">
             <summary>
             Назначить задачу инспектору
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.TasksController.Update(System.Int32,ImprovementMap.Entities.Task)">
+            <summary>
+            Обновить созданную задачу
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.TasksController.Delete(System.Int32)">
+            <summary>
+            Удалить задачу
             </summary>
         </member>
     </members>

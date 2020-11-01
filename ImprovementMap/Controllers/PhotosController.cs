@@ -77,6 +77,9 @@ namespace ImprovementMap.Controllers
             }
         }
 
+        /// <summary>
+        /// Удалить фото
+        /// </summary>
         [Authorize(Role.Admin, Role.Inspector)]
         [HttpDelete("{photoId:int}")]
         public IActionResult Delete(int photoId)

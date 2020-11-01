@@ -9,6 +9,31 @@
             Получить все области или области, которым требуется ремонт определенного типа (дороги: 1, тротуары: 2, обочины: 3)
             </summary>
         </member>
+        <member name="M:ImprovementMap.Controllers.FilesController.Post(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Загрузить титульный список
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.FilesController.Export">
+            <summary>
+            Скачать список объектов и их оценок
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.FilesController.ExportIntersects">
+            <summary>
+            Скачать список пересечений
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.PhotosController.Post(System.Int32,Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Загрузить фото к объекту
+            </summary>
+        </member>
+        <member name="M:ImprovementMap.Controllers.StatusesController.Create(System.Int32,ImprovementMap.Entities.AreaStatus)">
+            <summary>
+            Назначить оценку объекту
+            </summary>
+        </member>
         <member name="M:ImprovementMap.Controllers.TasksController.GetAll(System.Nullable{System.Int32})">
             <summary>
             Получить все задачи

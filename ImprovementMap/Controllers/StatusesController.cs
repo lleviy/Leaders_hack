@@ -34,6 +34,9 @@ namespace ImprovementMap.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Обновить оценку
+        /// </summary>
         [Authorize(Role.Admin)]
         [HttpPut("{id:int}")]
         public ActionResult<Area> Update(int id, AreaStatus model)
@@ -45,6 +48,9 @@ namespace ImprovementMap.Controllers
             return Ok(obj);
         }
 
+        /// <summary>
+        /// Удалить оценку
+        /// </summary>
         [Authorize(Role.Admin)]
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)

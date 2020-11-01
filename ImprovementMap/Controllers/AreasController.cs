@@ -37,6 +37,9 @@ namespace ImprovementMap.Controllers
             }
         }
 
+        /// <summary>
+        /// Получить детали по области
+        /// </summary>
         [HttpGet("{id:int}")]
         public ActionResult<Area> GetById(int id)
         {
@@ -44,6 +47,9 @@ namespace ImprovementMap.Controllers
             return Ok(obj);
         }
 
+        /// <summary>
+        /// Добавить область (доступно только администратору)
+        /// </summary>
         [Authorize(Role.Admin)]
         [HttpPost]
         public ActionResult<Area> Create(Area model)
@@ -54,6 +60,9 @@ namespace ImprovementMap.Controllers
             return Ok(obj);
         }
 
+        /// <summary>
+        /// Редактировать область (доступно только администратору)
+        /// </summary>
         [Authorize(Role.Admin)]
         [HttpPut("{id:int}")]
         public ActionResult<Area> Update(int id, Area model)
@@ -65,6 +74,9 @@ namespace ImprovementMap.Controllers
             return Ok(obj);
         }
 
+        /// <summary>
+        /// Удалить область (доступно только администратору)
+        /// </summary>
         [Authorize(Role.Admin)]
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)

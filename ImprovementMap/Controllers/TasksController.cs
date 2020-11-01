@@ -42,6 +42,9 @@ namespace ImprovementMap.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Обновить созданную задачу
+        /// </summary>
         [Authorize(Role.Manager)]
         [HttpPut("{id:int}")]
         public ActionResult<Task> Update(int id, Task model)
@@ -53,6 +56,9 @@ namespace ImprovementMap.Controllers
             return Ok(obj);
         }
 
+        /// <summary>
+        /// Удалить задачу
+        /// </summary>
         [Authorize(Role.Manager)]
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)

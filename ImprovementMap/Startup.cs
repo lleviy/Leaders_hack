@@ -45,7 +45,7 @@ namespace ImprovementMap
                     }
                  );
 
-                var filePath = Path.Combine(System.AppContext.BaseDirectory, "ImprovementMap.xml");
+                var filePath = Path.Combine(AppContext.BaseDirectory, "ImprovementMap.xml");
                 c.IncludeXmlComments(filePath);
             });
 

@@ -26,6 +26,9 @@ namespace ImprovementMap.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Войти в аккаунт
+        /// </summary>
         [HttpPost("authenticate")]
         public ActionResult<AuthenticateResponse> Authenticate(AuthenticateRequest model)
         {
@@ -43,6 +46,9 @@ namespace ImprovementMap.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Выйти из аккаунта
+        /// </summary>
         [Authorize]
         [HttpPost("revoke-token")]
         public IActionResult RevokeToken(RevokeTokenRequest model)
@@ -61,6 +67,9 @@ namespace ImprovementMap.Controllers
             return Ok(new { message = "Token revoked" });
         }
 
+        /// <summary>
+        /// Зарегистрировать аккаунт
+        /// </summary>
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest model)
         {
@@ -68,6 +77,9 @@ namespace ImprovementMap.Controllers
             return Ok(new { message = "Registration successful, please check your email for verification instructions" });
         }
 
+        /// <summary>
+        /// Подтвердить почту
+        /// </summary>
         [HttpPost("verify-email")]
         public IActionResult VerifyEmail(VerifyEmailRequest model)
         {
@@ -75,12 +87,16 @@ namespace ImprovementMap.Controllers
             return Ok(new { message = "Verification successful, you can now login" });
         }
 
+        /// <summary>
+        /// Установить новый пароль
+        /// </summary>
         [HttpPost("forgot-password")]
         public IActionResult ForgotPassword(ForgotPasswordRequest model)
         {
             _accountService.ForgotPassword(model, Request.Headers["origin"]);
             return Ok(new { message = "Please check your email for password reset instructions" });
         }
+
 
         [HttpPost("validate-reset-token")]
         public IActionResult ValidateResetToken(ValidateResetTokenRequest model)
@@ -89,6 +105,9 @@ namespace ImprovementMap.Controllers
             return Ok(new { message = "Token is valid" });
         }
 
+        /// <summary>
+        /// Сменить пароль
+        /// </summary>
         [HttpPost("reset-password")]
         public IActionResult ResetPassword(ResetPasswordRequest model)
         {
@@ -96,6 +115,9 @@ namespace ImprovementMap.Controllers
             return Ok(new { message = "Password reset successful, you can now login" });
         }
 
+        /// <summary>
+        /// Получить все аккаунты (только администратор)
+        /// </summary>
         //[Authorize(Role.Admin)]
         [HttpGet]
         public ActionResult<IEnumerable<AccountResponse>> GetAll()
@@ -104,6 +126,9 @@ namespace ImprovementMap.Controllers
             return Ok(accounts);
         }
 
+        /// <summary>
+        /// Получить свой профиль
+        /// </summary>
         [Authorize]
         [HttpGet("{id:int}")]
         public ActionResult<AccountResponse> GetById(int id)

@@ -4,15 +4,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-//using Z.EntityFramework.Plus;
+using Z.EntityFramework.Plus;
+using Microsoft.EntityFrameworkCore;
 
 namespace ImprovementMap.Services
 {
@@ -61,21 +59,10 @@ namespace ImprovementMap.Services
             return sheet;
         }
 
-        public class Response
-        {
-            public AreaPolygon areaPolygon;
-        }
-        public class AreaPolygon
-        {
-            [JsonProperty("name")]
-            public string Name { get; set; }
-            [JsonProperty("polygon")]
-            public List<List<float>> Polygon { get; set; }
-        }
-
 
         public string ParseExcelToObjects(ISheet sheet)
         {
+            List<Area> intersects = new List<Area>();
             string folderName = "ODH";
             string webRootPath = _environment.WebRootPath;
             string newPath = Path.Combine(webRootPath, folderName);
@@ -94,7 +81,7 @@ namespace ImprovementMap.Services
             var js = JToken.Parse(textFromFile);
             Area objInDb = null;
             string result;
-            //AllObjectsToArchive();
+            AllObjectsToArchive();
             int i = 0;
             while (sheet.GetRow(i).GetCell(0).ToString() != "1") i++;
             i++;
@@ -162,31 +149,28 @@ namespace ImprovementMap.Services
                         _context.Objects.Add(obj);
                     }
                 }
-                //if (!_context.ObjectTypes.Any(o => o.Name == typeName))
-                //{
-                //    ObjectType objType = new ObjectType();
-                //    objType.Name = typeName;
-                //    _context.ObjectTypes.Add(objType);
-                //    _context.SaveChanges();
-                //}
-                //obj.TypeId = _context.ObjectTypes.FirstOrDefault(t => t.Name == typeName).Id;
-                //objInDb = ObjectWithSuchValues(area);
-                //if (objInDb != null)
-                //{
-                //    objInDb.IsActive = true;
-                //    _context.Areas.Update(objInDb);
-                //}
-                //else _context.Areas.Add(area);
+                objInDb = ObjectWithSuchValues(area);
+                if (objInDb != null)
+                {
+                    objInDb.IsActive = true;
+                    _context.Areas.Update(objInDb);
+                    intersects.Add(objInDb);
+                }
+                else _context.Areas.Add(area);
             }
             _context.SaveChanges();
-            if (objInDb != null) result = "Обнаружено пересечение объектов. Старые объекты были перезаписаны новыми.";
+            if (intersects.Count != 0)
+            {
+                result = "Обнаружено пересечение объектов. Старые объекты были перезаписаны новыми. Вы можете скачать excel-файл с пересечениями.";
+                FormIntersectsFile(intersects);
+            }
             else result = "Загруженные объекты были сохранены в базе данных.";
             return result;
         }
 
         public Area ObjectWithSuchValues (Area area)
         {
-            var areaInDb = _context.Areas.FirstOrDefault(a => a.Name == area.Name);
+            var areaInDb = _context.Areas.FirstOrDefault(a => a.Name == area.Name & a.StartPoint == area.StartPoint & a.EndPoint == area.EndPoint);
             if (areaInDb != null)
             {
                 return areaInDb;
@@ -194,11 +178,45 @@ namespace ImprovementMap.Services
             return null;
         }
 
-        //public void AllObjectsToArchive()
-        //{
-        //    _context.Areas.Update(x => new Area() { IsActive = false });
-        //    _context.BulkSaveChangesAsync();
-        //}
+        public void FormIntersectsFile(List<Area> intersects)
+        {
+            string sWebRootFolder = _environment.WebRootPath;
+            string sFileName = @"Intersects.xlsx";
+            FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+            var memory = new MemoryStream();
+            using (var fs = new FileStream(Path.Combine(sWebRootFolder, sFileName), FileMode.Create, FileAccess.Write))
+            {
+                IWorkbook workbook = new XSSFWorkbook();
+                ISheet excelSheet = workbook.CreateSheet("Intersects");
+
+                IRow row = excelSheet.CreateRow(0);
+                row.CreateCell(0).SetCellValue("Name");
+                row.CreateCell(0).SetCellValue("StartPoint");
+                row.CreateCell(0).SetCellValue("EndPoint");
+                row.CreateCell(0).SetCellValue("Status");
+
+                for (int i = 1; i < intersects.Count; i++)
+                {
+                    row = excelSheet.CreateRow(i);
+                    row.CreateCell(0).SetCellValue(intersects[i].Name);
+                    row.CreateCell(0).SetCellValue(intersects[i].StartPoint);
+                    row.CreateCell(0).SetCellValue(intersects[i].EndPoint);
+                    row.CreateCell(0).SetCellValue(intersects[i].Status.Status);
+                }
+                workbook.Write(fs);
+            }
+            using (var stream = new FileStream(Path.Combine(sWebRootFolder, sFileName), FileMode.Open))
+            {
+                stream.CopyTo(memory);
+            }
+            memory.Position = 0;
+        }
+
+        public void AllObjectsToArchive()
+        {
+            _context.Areas.Update(x => new Area() { IsActive = false });
+            _context.BulkSaveChangesAsync();
+        }
 
 
     }
